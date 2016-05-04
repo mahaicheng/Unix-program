@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "copy apue.h to system directory"
+sudo cp apue.h /usr/include/

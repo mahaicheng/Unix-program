@@ -1,0 +1,6 @@
+a write to stdout
+before fork
+child process:
+pid = 2518, glob = 7, var = 4196705
+parent process:
+pid = 2517, glob = 6, var = 4196704
