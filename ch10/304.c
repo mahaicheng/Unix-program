@@ -1,16 +1,15 @@
 /*************************************************************************
-	> 文件名: 304.c
-	> 作者: 马海城
-	> 邮箱: hchma@outlook.com
-	> 创建日期: 2015年09月24日 星期四 08时57分33秒
+        > 文件名: 304.c
+        > 作者: 马海城
+        > 邮箱: hchma@outlook.com
+        > 创建日期: 2015年09月24日 星期四 08时57分33秒
  ************************************************************************/
 
-#include<apue.h>
+#include <apue.h>
 
-int main()
-{
-    psignal(SIGALRM, "304");
-    psignal(SIGINT, "304");
+int main() {
+  psignal(SIGALRM, "304");
+  psignal(SIGINT, "304");
 
-    printf("%s\n", strsignal(SIGALRM));
+  printf("%s\n", strsignal(SIGALRM));
 }

@@ -1,8 +1,8 @@
 /*************************************************************************
-	> 文件名: apue.h
-	> 作者: 马海城
-	> 邮箱: hchma@outlook.com
-	> 创建日期: 2015年09月03日 星期四 17时20分21秒
+        > 文件名: apue.h
+        > 作者: 马海城
+        > 邮箱: hchma@outlook.com
+        > 创建日期: 2015年09月03日 星期四 17时20分21秒
  ************************************************************************/
 
 #ifndef _APUE_H_
@@ -11,19 +11,19 @@
 #define _POSIX_C_SOURCE 200809L
 
 #if defined(SOLARIS)
-    #define _XOPEN_SOURCE 600
+#define _XOPEN_SOURCE 600
 #else
-    #define _XOPEN_SOURCE 700
+#define _XOPEN_SOURCE 700
 #endif
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<stddef.h>
-#include<string.h>
-#include<unistd.h>
-#include<signal.h>
-#include<fcntl.h>
-#include<sys/types.h>
+#include <fcntl.h>
+#include <signal.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #define MAXLINE 4096
 
@@ -33,8 +33,8 @@
 
 typedef void Sigfunc(int);
 
-#define min(a,b) ((a)<(b)?(a):(b))
-#define max(a,b) ((a)>(b)?(a):(b))
+#define min(a, b) ((a) < (b) ? (a) : (b))
+#define max(a, b) ((a) > (b) ? (a) : (b))
 
 char* path_alloc(size_t*);
 long open_max(void);
@@ -81,24 +81,24 @@ pid_t pty_fork(int*, char*, int, const struct termios*, const struct　winsize*)
 int lock_reg(int, int, int, off_t, int, off_t);
 
 #define read_lock(fd, offset, whence, len) \
-        lock_reg((fd), F_SETLK, F_RDLCK, (offset), (whence), (len))
+  lock_reg((fd), F_SETLK, F_RDLCK, (offset), (whence), (len))
 #define readw_lock(fd, offset, whence, len) \
-        lock_reg((fd), F_SETLKW, F_RDLCK, (offset), (whence), (len))
+  lock_reg((fd), F_SETLKW, F_RDLCK, (offset), (whence), (len))
 #define write_lock(fd, offset, whence, len) \
-        lock_reg((fd), F_SETLK, F_WRLCK, (offset), (whence), (len))
+  lock_reg((fd), F_SETLK, F_WRLCK, (offset), (whence), (len))
 #define writew_lock(fd, offset, whence, len) \
-        lock_reg((fd), F_SETLKW, F_WRLCK, (offset), (whence), (len))
+  lock_reg((fd), F_SETLKW, F_WRLCK, (offset), (whence), (len))
 #define un_lock(fd, offset, whence, len) \
-        lock_reg((fd), F_SETLK, F_UNLCK, (offset), (whence), (len))
+  lock_reg((fd), F_SETLK, F_UNLCK, (offset), (whence), (len))
 
 pid_t lock_test(int, int, off_t, int, off_t);
 
 #define is_read_lockable(fd, offset, whence, len) \
-        (lock_test((fd), F_RDLCK, (offset), (whence), (len)) == 0)
+  (lock_test((fd), F_RDLCK, (offset), (whence), (len)) == 0)
 #define is_write_lockable(fd, offset, whence, len) \
-        (lock_test((fd), F_WRLCK, (offset), (whence), (len)) == 0)
+  (lock_test((fd), F_WRLCK, (offset), (whence), (len)) == 0)
 
-//err_XXX.c
+// err_XXX.c
 void err_msg(const char*, ...);
 void err_dump(const char*, ...) __attribute__((noreturn));
 void err_quit(const char*, ...) __attribute__((noreturn));
@@ -106,7 +106,7 @@ void err_cont(int, const char*, ...);
 void err_exit(int, const char*, ...) __attribute__((noreturn));
 void err_ret(const char*, ...);
 void err_sys(const char*, ...) __attribute__((noreturn));
-//log_XXX.c
+// log_XXX.c
 void log_msg(const char*, ...);
 void log_open(const char*, int, int);
 void log_quit(const char*, ...) __attribute__((noreturn));
@@ -114,7 +114,7 @@ void log_ret(const char*, ...);
 void log_sys(const char*, ...) __attribute__((noreturn));
 void log_exit(int, const char*, ...) __attribute__((noreturn));
 
-void tell_wait(void);       //10-24.c
+void tell_wait(void);  // 10-24.c
 void tell_parent(pid_t);
 void tell_child(pid_t);
 void wait_child(void);

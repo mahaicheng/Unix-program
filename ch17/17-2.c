@@ -1,14 +1,11 @@
 /*************************************************************************
-	> 文件名: 17-2.c
-	> 作者: 马海城
-	> 邮箱: hchma@outlook.com
-	> 创建日期: 2015年09月16日 星期三 12时52分11秒
+        > 文件名: 17-2.c
+        > 作者: 马海城
+        > 邮箱: hchma@outlook.com
+        > 创建日期: 2015年09月16日 星期三 12时52分11秒
  ************************************************************************/
 
-#include<apue.h>
-#include<sys/socket.h>
+#include <apue.h>
+#include <sys/socket.h>
 
-int fd_pipe(int fd[2])
-{
-    return socketpair(AF_UNIX, SOCK_STREAM, 0, fd);
-}
+int fd_pipe(int fd[2]) { return socketpair(AF_UNIX, SOCK_STREAM, 0, fd); }

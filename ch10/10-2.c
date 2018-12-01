@@ -1,31 +1,26 @@
 /*************************************************************************
-	> 文件名: 10-2.c
-	> 作者: 马海城
-	> 邮箱: hchma@outlook.com
-	> 创建日期: 2015年09月22日 星期二 20时53分30秒
+        > 文件名: 10-2.c
+        > 作者: 马海城
+        > 邮箱: hchma@outlook.com
+        > 创建日期: 2015年09月22日 星期二 20时53分30秒
  ************************************************************************/
 
-#include<apue.h>
+#include <apue.h>
 
 void sig_usr(int);
 
-int main()
-{
-    if(signal(SIGUSR1, sig_usr) == SIG_ERR)
-        err_sys("can't catch SIGUSR1");
-    if(signal(SIGUSR2, sig_usr) == SIG_ERR)
-        err_sys("can't catch SIGUSR2");
+int main() {
+  if (signal(SIGUSR1, sig_usr) == SIG_ERR) err_sys("can't catch SIGUSR1");
+  if (signal(SIGUSR2, sig_usr) == SIG_ERR) err_sys("can't catch SIGUSR2");
 
-    while(1)
-        pause();
+  while (1) pause();
 }
 
-void sig_usr(int signo)
-{
-    if(signo == SIGUSR1)
-        printf("received SIGUSR1\n");
-    else if(signo == SIGUSR2)
-        printf("received SIGUSR2\n");
-    else
-        err_dump("received signal %d\n", signo);
+void sig_usr(int signo) {
+  if (signo == SIGUSR1)
+    printf("received SIGUSR1\n");
+  else if (signo == SIGUSR2)
+    printf("received SIGUSR2\n");
+  else
+    err_dump("received signal %d\n", signo);
 }

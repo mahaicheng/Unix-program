@@ -1,60 +1,53 @@
 /*************************************************************************
-	> 文件名: 15-33.c
-	> 作者: 马海城
-	> 邮箱: hchma@outlook.com
-	> 创建日期: 2015年10月26日 星期一 17时58分02秒
+        > 文件名: 15-33.c
+        > 作者: 马海城
+        > 邮箱: hchma@outlook.com
+        > 创建日期: 2015年10月26日 星期一 17时58分02秒
  ************************************************************************/
 
-#include<apue.h>
-#include<fcntl.h>
-#include<sys/mman.h>
+#include <apue.h>
+#include <fcntl.h>
+#include <sys/mman.h>
 
-#define NLOOPS  1000
-#define SIZE    sizeof(long)
+#define NLOOPS 1000
+#define SIZE sizeof(long)
 
-static int update(long* ptr)
-{
-    return (*ptr)++;
-}
+static int update(long* ptr) { return (*ptr)++; }
 
-int main()
-{
-    int fd;
-    if((fd = open("/dev/zero", O_RDWR)) < 0)
-        err_sys("open error");
+int main() {
+  int fd;
+  if ((fd = open("/dev/zero", O_RDWR)) < 0) err_sys("open error");
 
-    void* area;
-    if((area = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)) == MAP_FAILED)
-        err_sys("mmap error");
-    close(fd);
+  void* area;
+  if ((area = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)) ==
+      MAP_FAILED)
+    err_sys("mmap error");
+  close(fd);
 
-    tell_wait();
+  tell_wait();
 
-    int i, counter;
-    pid_t pid;
-    if((pid = fork()) < 0)
-        err_sys("fork error");
-    else if(pid > 0){
-        for(i = 0; i < NLOOPS; i += 2){
-            if((counter = update((long*)area)) != i)
-                err_quit("update error");
+  int i, counter;
+  pid_t pid;
+  if ((pid = fork()) < 0)
+    err_sys("fork error");
+  else if (pid > 0) {
+    for (i = 0; i < NLOOPS; i += 2) {
+      if ((counter = update((long*)area)) != i) err_quit("update error");
 
-            printf("parent: %d\n", counter);
+      printf("parent: %d\n", counter);
 
-            tell_child(pid);
-            wait_child();
-        }
+      tell_child(pid);
+      wait_child();
     }
-    else{
-        for(i = 1; i < NLOOPS + 1; i += 2){
-            wait_parent();
-            
-            if((counter = update((long*)area)) != i)
-                err_quit("update error");
-    
-            printf("child : %d\n", counter);
+  } else {
+    for (i = 1; i < NLOOPS + 1; i += 2) {
+      wait_parent();
 
-            tell_parent(getppid());
-        }
+      if ((counter = update((long*)area)) != i) err_quit("update error");
+
+      printf("child : %d\n", counter);
+
+      tell_parent(getppid());
     }
+  }
 }

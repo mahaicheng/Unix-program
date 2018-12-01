@@ -1,17 +1,15 @@
 /*************************************************************************
-	> 文件名: echoarg.c
-	> 作者: 马海城
-	> 邮箱: hchma@outlook.com
-	> 创建日期: 2015年09月20日 星期日 13时58分20秒
+        > 文件名: echoarg.c
+        > 作者: 马海城
+        > 邮箱: hchma@outlook.com
+        > 创建日期: 2015年09月20日 星期日 13时58分20秒
  ************************************************************************/
 
-#include<apue.h>
+#include <apue.h>
 
-int main(int argc, char* argv[])
-{
-    int i;
-    for(i = 0; i < argc; ++i)
-    {
-        printf("argv[%d]: %s\n", i, argv[i]);
-    }
+int main(int argc, char* argv[]) {
+  int i;
+  for (i = 0; i < argc; ++i) {
+    printf("argv[%d]: %s\n", i, argv[i]);
+  }
 }

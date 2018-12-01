@@ -1,18 +1,18 @@
 /*************************************************************************
-	> 文件名: path_alloc.c
-	> 作者: 马海城
-	> 邮箱: hchma@outlook.com
-	> 创建日期: 2015年09月15日 星期二 20时29分18秒
+        > 文件名: path_alloc.c
+        > 作者: 马海城
+        > 邮箱: hchma@outlook.com
+        > 创建日期: 2015年09月15日 星期二 20时29分18秒
  ************************************************************************/
 
-#include"apue.h"
-#include<errno.h>
-#include<limits.h>
+#include <errno.h>
+#include <limits.h>
+#include "apue.h"
 
 #ifdef PATH_MAX
-    static long pathmax = PATH_MAX;
+static long pathmax = PATH_MAX;
 #else
-    static long pathmax = 0;
+static long pathmax = 0;
 #endif
 
 static long posix_version = 0;
@@ -20,40 +20,35 @@ static long xsi_version = 0;
 
 #define PATH_MAX_GUESS 1024
 
-char* path_alloc(size_t* sizep)
-{
-    if(posix_version == 0)
-        posix_version = sysconf(_SC_VERSION);
+char* path_alloc(size_t* sizep) {
+  if (posix_version == 0) posix_version = sysconf(_SC_VERSION);
 
-    if(xsi_version == 0)
-        xsi_version = sysconf(_SC_XOPEN_VERSION);
+  if (xsi_version == 0) xsi_version = sysconf(_SC_XOPEN_VERSION);
 
-    if(pathmax == 0){
-        errno = 0;
-        if((pathmax = pathconf("/", _PC_PATH_MAX)) < 0){
-            if(errno == 0)
-                pathmax = PATH_MAX_GUESS;
-            else
-                err_sys("pathconf error for _PC_PATH_MAX");
-        }
-        else{
-            ++pathmax;
-        }
+  if (pathmax == 0) {
+    errno = 0;
+    if ((pathmax = pathconf("/", _PC_PATH_MAX)) < 0) {
+      if (errno == 0)
+        pathmax = PATH_MAX_GUESS;
+      else
+        err_sys("pathconf error for _PC_PATH_MAX");
+    } else {
+      ++pathmax;
     }
+  }
 
-    size_t size;
-    if((posix_version < 200112L) && (xsi_version < 4))
-        size = pathmax + 1;
-    else
-        size = pathmax;
+  size_t size;
+  if ((posix_version < 200112L) && (xsi_version < 4))
+    size = pathmax + 1;
+  else
+    size = pathmax;
 
-    char* ptr;
-    if((ptr = malloc(size)) == NULL){
-        err_sys("malloc error for pathname");
-    }
+  char* ptr;
+  if ((ptr = malloc(size)) == NULL) {
+    err_sys("malloc error for pathname");
+  }
 
-    if(sizep != NULL)
-        *sizep = size;
+  if (sizep != NULL) *sizep = size;
 
-    return ptr;
+  return ptr;
 }
